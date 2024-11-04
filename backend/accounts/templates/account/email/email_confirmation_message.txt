@@ -1,0 +1,18 @@
+<!-- templates/account/email/email_confirmation_message.txt -->
+{% load account %}
+{% user_display user as user_display %}
+안녕하세요!
+
+{{ user_display }}님, Novel Stella에 오신 것을 환영합니다.
+
+귀하의 이메일 주소({{ email }})로 Novel Stella 계정 등록이 요청되었습니다.
+계정을 활성화하시려면 아래 링크를 클릭해 주세요:
+
+{{ activate_url }}
+
+이 링크는 {{ expiration_days }}일 동안 유효합니다.
+
+본인이 요청하지 않으셨다면 이 이메일을 무시하셔도 됩니다.
+
+감사합니다.
+Novel Stella 팀 드림

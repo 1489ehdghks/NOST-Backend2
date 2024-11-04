@@ -1,0 +1,2 @@
+<!-- templates/account/email/email_confirmation_subject.txt -->
+[Novel Stella] 이메일 주소를 확인해 주세요
