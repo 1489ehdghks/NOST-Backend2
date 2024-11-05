@@ -30,10 +30,9 @@ DEEPL_API_KEY = secret.DEEPL_API_KEY
 DEBUG = True
 
 
-
-#railway fix
+# railway fix
 # SECRET_KEY = secret.SECRET_KEY
-# SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
@@ -54,7 +53,6 @@ DATABASES = {
         'PORT': os.getenv('PGPORT', '5432'),
     }
 }
-
 
 
 ALLOWED_HOSTS = [
@@ -141,7 +139,6 @@ WSGI_APPLICATION = "config.wsgi.application"
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-
 
 
 # CORS
