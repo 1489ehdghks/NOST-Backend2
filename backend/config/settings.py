@@ -23,17 +23,46 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secret.SECRET_KEY
+
 OPENAI_API_KEY = secret.OPENAI_API_KEY
 DEEPL_API_KEY = secret.DEEPL_API_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+
+
+#railway fix
+# SECRET_KEY = secret.SECRET_KEY
+# SECRET_KEY = os.getenv('SECRET_KEY')
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'NovelStella',
+#         'USER': 'postgres',
+#         'PASSWORD': secret.POSTGRESQL_PASSWORD,
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('PGDATABASE'),
+        'USER': os.getenv('PGUSER'),
+        'PASSWORD': os.getenv('PGPASSWORD'),
+        'HOST': os.getenv('PGHOST'),
+        'PORT': os.getenv('PGPORT', '5432'),
+    }
+}
+
+
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     "novel-stella.com",
     "nost-stella.com",
+    ".railway.app",
 ]
 
 # 미디어 파일을 위한 스토리지 설정
@@ -113,16 +142,6 @@ WSGI_APPLICATION = "config.wsgi.application"
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'NovelStella',
-        'USER': 'postgres',
-        'PASSWORD': secret.POSTGRESQL_PASSWORD,
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
 
 
 # CORS
@@ -131,6 +150,10 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "https://novel-stella.com",
     "https://nost-stella.com",
+]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://novel-stella.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -195,10 +218,13 @@ SIMPLE_JWT = {
 # SMTP 설정
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = "587"
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = os.getenv('EMAIL_PORT', '587')
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = secret.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = secret.EMAIL_HOST_PASSWORD
+# EMAIL_HOST_USER = secret.EMAIL_HOST_USER
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = secret.EMAIL_HOST_PASSWORD
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_CONFIRMATION_REDIRECT_URL = 'https://novel-stella.com'
 
@@ -226,7 +252,6 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = FRONTEND_URL + '/email-c
 EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = FRONTEND_URL
 
 
-DEBUG = True
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
