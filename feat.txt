@@ -1,0 +1,17 @@
+# 1. 새로운 기능 개발 시
+git checkout dev
+git checkout -b feature/기능이름
+
+# 2. 기능 개발 완료 후
+git add .
+git commit -m "feat: 새로운 기능 추가"
+git push origin feature/기능이름
+
+# 3. GitHub에서 Pull Request 생성
+# - feature/기능이름 -> dev
+
+# 4. 코드 리뷰 후 dev에 머지
+
+# 5. 배포 준비가 되었을 때
+# GitHub에서 Pull Request 생성
+# - dev -> main
